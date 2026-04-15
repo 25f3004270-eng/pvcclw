@@ -1670,5 +1670,5 @@ def init_db():
 with app.app_context():
     init_db()
 
-if __name__ == '__main__':
+if __name__ == '__main__'
     
