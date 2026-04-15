@@ -4,10 +4,9 @@ flask_login
 pandas
 openpyxl
 python-dateutil
-waitress
 gunicorn
 psycopg2-binary
-pymysql
 cryptography
 Flask-WTF
 click
+werkzeug
