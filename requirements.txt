@@ -1,12 +1,12 @@
 flask
 flask_sqlalchemy
 flask_login
+Flask-WTF
 pandas
 openpyxl
 python-dateutil
 gunicorn
 psycopg2-binary
 cryptography
-Flask-WTF
-click
 werkzeug
+click
