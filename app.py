@@ -28,23 +28,15 @@ GST_FACTOR = 1.18
 # APP + DB
 # ─────────────────────────────────────────────────────────────
 app = Flask(__name__)
-
-# Secret key from environment (safe for production)
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "f8765432112345678pvc")
-
-# Database configuration (Render PostgreSQL)
-DATABASE_URL = os.environ.get("DATABASE_URL")
-
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL is not set!")
-
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback-secret-key')
+DATABASE_URL = (
+    os.environ.get('DATABASE_URL')
+    or 'mysql+pymysql://root:@localhost/pvc_db'
+)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-
+db           = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -1667,11 +1659,10 @@ def init_db():
 # ─────────────────────────────────────────────────────────────
 # STARTUP
 # ─────────────────────────────────────────────────────────────
-# ─────────────────────────────────────────────────────────────
-# STARTUP
-# ─────────────────────────────────────────────────────────────
 with app.app_context():
     init_db()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_DEBUG', 'true').lower() == 'true'
+    app.run(host='0.0.0.0', port=port, debug=debug)
