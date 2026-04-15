@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Item' if item else 'Add Item' }}{% endblock %}
+{% block content %}
+<div class="mt-3">
+  <h4>{{ 'Edit Item' if item else 'Add Item' }}</h4>
+  <hr>
+  <form method="post" class="col-md-8">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input class="form-control" name="name" value="{{ item.name if item else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Code (optional)</label>
+      <input class="form-control" name="code" value="{{ item.code if item else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">PVC Formula Code</label>
+      <input class="form-control" name="pvcformulacode" value="{{ item.pvc_formula_code if item else '' }}" required>
+      <small class="text-muted">Example: POWER_TRF_IEEMA, CABLE_IEEMA, ERC_RAILWAY</small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Weights JSON</label>
+      <textarea class="form-control" rows="5" name="weightsjson">{{ item.weights_json if item else '{
+  "copper": 40,
+  "crgo": 24,
+  "ms": 8,
+  "insmat": 4,
+  "transoil": 8,
+  "wpi": 8
+}' }}</textarea>
+      <small class="text-muted">JSON mapping index name to weight. Must be valid JSON.</small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Extra Fields JSON</label>
+      <textarea class="form-control" rows="4" name="extrafieldsjson">{{ item.extra_fields_json if item else '[]' }}</textarea>
+      <small class="text-muted">List of extra field definitions in JSON.</small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" rows="3" name="description">{{ item.description if item else '' }}</textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a href="{{ url_for('adminitemslist') }}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

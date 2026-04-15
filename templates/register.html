@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-secondary text-white"><h5 class="mb-0">Register</h5></div>
+      <div class="card-body">
+        <form method="post" action="{{ url_for('register') }}">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="fullname" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contact No</label>
+              <input type="text" name="contactno" class="form-control" maxlength="20" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Designation</label>
+              <input type="text" name="designation" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Control No</label>
+              <input type="text" name="controlno" class="form-control" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success w-100 mt-3">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
