@@ -28,7 +28,7 @@ GST_FACTOR = 1.18
 # APP + DB
 # ─────────────────────────────────────────────────────────────
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback-secret-key')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', '8765432112345678pvc')
 DATABASE_URL = (
     os.environ.get('DATABASE_URL')
     or 'mysql+pymysql://root:@localhost/pvc_db'
