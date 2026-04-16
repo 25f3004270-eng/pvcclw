@@ -29,14 +29,15 @@ GST_FACTOR = 1.18
 # ─────────────────────────────────────────────────────────────
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', '8765432112345678pvc')
-DATABASE_URL = (
-    os.environ.get('DATABASE_URL')
-    or 'mysql+pymysql://root:@localhost/pvc_db'
-)
+#DATABASE_URL = (
+#    os.environ.get('DATABASE_URL')
+#    or 'mysql+pymysql://root:@localhost/pvc_db'
+#)
+DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://localhost/pvc_db')
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db           = SQLAlchemy(app)
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 10, 'pool_recycle': 3600, 'pool_pre_ping': True}
+db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -1664,5 +1665,5 @@ with app.app_context():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    debug = os.environ.get('FLASK_DEBUG', 'true').lower() == 'true'
+    debug = os.environ.get('FLASK_ENV', 'production') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug)
