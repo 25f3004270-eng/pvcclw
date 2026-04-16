@@ -1,22 +1,5 @@
-services:
-  - type: web
-    name: pvcclw
-    runtime: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn wsgi:app --timeout 120 --workers 2
-    envVars:
-      - key: SECRET_KEY
-        generateValue: true
-      - key: FLASK_DEBUG
-        value: false
-      - key: DATABASE_URL
-        fromDatabase:
-          name: pvcclw-db
-          property: connectionString
+# Render Configuration for Gunicorn
 
-databases:
-  - name: pvcclw-db
-    plan: free
-    databaseName: pvc_db
-    user: pvcuser
+# This configuration ensures that Gunicorn uses `wsgi:app` as the entry point.
+
+command: gunicorn wsgi:app
